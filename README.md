@@ -8,3 +8,13 @@
 
 ![Gemini first call]
 <img width="832" height="263" alt="gemini_first_call" src="https://github.com/user-attachments/assets/5b8fb8ec-2061-47df-a4fe-39f02134f04b" />
+
+## Day 4 — Productivity sprint
+
+**Company:** TCS
+
+### Edit notes
+
+1. Verified hiring statistics before finalizing slides.
+2. Removed unverifiable package information.
+3. Edited cover slide to make it company-specific.
