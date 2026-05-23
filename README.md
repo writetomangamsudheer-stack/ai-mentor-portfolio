@@ -19,7 +19,10 @@
 2. Removed unverifiable package information.
 3. Edited cover slide to make it company-specific.
 
-## Day 5 — Hugging Face NLP Lab complete
+## Day 5 — resume scorer completed 
+https://resume-scorer-ckg4q6mvrorwmtauqvx2pf.streamlit.app/
+
+Hugging Face NLP Lab complete
 
 | Method                | Minimum Time | Average Time |
 | --------------------- | ------------ | ------------ |
