@@ -19,7 +19,7 @@
 2. Removed unverifiable package information.
 3. Edited cover slide to make it company-specific.
 
-## Day 5 — Setup complete
+## Day 5 — Hugging Face NLP Lab complete
 
 | Method                | Minimum Time | Average Time |
 | --------------------- | ------------ | ------------ |
