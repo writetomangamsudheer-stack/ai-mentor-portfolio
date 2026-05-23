@@ -18,3 +18,15 @@
 1. Verified hiring statistics before finalizing slides.
 2. Removed unverifiable package information.
 3. Edited cover slide to make it company-specific.
+
+## Day 5 — Setup complete
+
+| Method                | Minimum Time | Average Time |
+| --------------------- | ------------ | ------------ |
+| Hugging Face API      | 0.01s        | 0.14s        |
+| Local Model Inference | 0.82s        | 0.87s        |
+
+Reflection
+API inference is faster to start with and easier to deploy because the model is hosted remotely.
+Local inference is slower initially but gives better privacy, offline capability, and no API dependency.
+In production, APIs are ideal for quick prototyping and low infrastructure cost, while local models are better for high-scale, privacy-sensitive, or offline systems.
