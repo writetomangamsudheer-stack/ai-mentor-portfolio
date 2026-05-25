@@ -64,3 +64,70 @@ To improve reliability:
 - schema validation
 - semantic validation
 - hallucination defence
+
+# Day 6 — Capstone Sprint 1: PlacementDataProcessor
+
+## Engineer Answer
+
+### 1. PROBLEM
+
+Job Descriptions from company websites are messy HTML pages. Placement teams need structured data to filter jobs based on skills, role requirements, and eligibility criteria.
+
+Manual extraction is slow and difficult for large numbers of JDs.
+
+---
+
+### 2. ARCHITECTURE
+
+JD URL  
+→ BeautifulSoup scraper  
+→ Gemini structured extraction (`response_schema`)  
+→ Pydantic validation  
+→ `data/jds.jsonl`
+
+The system converts unstructured job pages into clean structured JSON.
+
+---
+
+### 3. TRADE-OFFS
+
+- Scraping is fragile because some websites block bots.
+- Dynamic JavaScript pages reduce extraction quality.
+- Gemini provides structured JSON but may still miss semantic details.
+- Most latency comes from Gemini API calls.
+
+---
+
+### 4. SCALE
+
+- Small batches work easily on free Gemini API.
+- Large-scale systems require retry logic, queues, and paid APIs.
+- JSONL datasets can later be indexed into RAG systems.
+
+---
+
+### 5. INTERVIEW ANSWER
+
+"I built a schema-first pipeline that converts scraped Job Descriptions into structured JSON using Gemini structured outputs and Pydantic validation."
+
+---
+
+## Extraction Observations
+
+- Amazon and Meta job pages produced the strongest extraction quality because they exposed detailed qualification text in static HTML.
+- Google Careers pages were partially JavaScript-rendered, reducing extraction quality in some cases.
+- The pipeline handled partial scraping failures gracefully and continued processing remaining JDs.
+
+---
+
+## Files
+
+- `Day6_PlacementProcessor.ipynb`
+- `data/jds.jsonl`
+
+---
+
+## Pair
+
+- Mentor 1: Mangam Sudheer
+- Mentor 2: Surimalli Koteswara Rao
