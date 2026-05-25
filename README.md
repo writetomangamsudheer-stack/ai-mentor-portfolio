@@ -152,159 +152,195 @@ This lab demonstrated the basics of embeddings, vector databases, semantic searc
 
 # PlacementKnowledgeRAG
 
-## Day 7 — Capstone Sprint 2
 
-A Retrieval-Augmented Generation (RAG) system built using:
+
+
+# Day 7 — Capstone Sprint 2: PlacementKnowledgeRAG
+
+## Overview
+Built a citation-enforcing RAG (Retrieval-Augmented Generation) chatbot using:
 - MiniLM embeddings
 - ChromaDB vector database
-- LangChain
-- Placement JDs + syllabus documents
+- LangChain RetrievalQA
+- Gemini API
 
-The system retrieves relevant placement-related information with citations.
+The system indexes placement Job Descriptions (JDs) and syllabus documents, retrieves relevant chunks using semantic similarity, and answers student questions with citations.
 
+---
 
-# Problem Statement
+# Engineer Answer
 
-LLMs do not know private placement data such as:
-- company job descriptions
-- syllabus documents
-- internal placement preparation material
+## 1. PROBLEM
+Frontier LLMs do not know private institutional data such as placement JDs and syllabus documents. Students need a chatbot that answers ONLY from the placement corpus and provides verifiable citations.
 
-This project solves that problem using RAG (Retrieval-Augmented Generation).
+---
 
+## 2. ARCHITECTURE
 
-# Architecture
+5-stage RAG pipeline:
 
-User Question
-↓
-MiniLM Embeddings
-↓
-ChromaDB Vector Store
-↓
-Top-k Similarity Search
-↓
-Retrieved Chunks with Citations
+1. Embed  
+   - Model: `sentence-transformers/all-MiniLM-L6-v2`
+   - 384-dimensional embeddings
 
+2. Index  
+   - ChromaDB persistent vector collection
+   - Metadata stored for company, source, CGPA, etc.
 
-# Tech Stack
+3. Retrieve  
+   - Top-4 cosine similarity retrieval
 
-- Python
-- Sentence Transformers
-- ChromaDB
-- LangChain
-- Google Gemini API
-- HuggingFace Embeddings
+4. Augment  
+   - Citation-enforcing prompt
+   - Strict instruction: "Do NOT guess"
 
+5. Generate  
+   - Gemini / LangChain QA chain
 
-# Features
+---
 
-- Indexed 50+ placement documents
-- Vector similarity search
-- Citation-based retrieval
-- JD search
-- Syllabus topic retrieval
-- Out-of-corpus detection
+## 3. TRADE-OFFS
 
-# Chunking Strategy
+- Cost:
+  - MiniLM embeddings are free and local
+  - Gemini API has quota limits
 
-- Chunk Size: 500
-- Chunk Overlap: 50
-- Embedding Model:
-  `sentence-transformers/all-MiniLM-L6-v2`
+- Accuracy:
+  - Retrieval works well for placement-related queries
 
+- Latency:
+  - Retrieval: <1 second
+  - LLM generation: depends on API quota
 
-# Sample Questions
+- Complexity:
+  - Chunking strategy affects retrieval quality
 
-## 1. Which companies want Java + DSA + CGPA 7+?
+- Caveat:
+  - Out-of-corpus detection requires strict prompting
 
-Retrieved JD chunks mentioning:
-- Java
-- DSA
-- CGPA requirements
+---
 
-Sources:
-- jd_0
-- jd_5
+## 4. SCALE
 
+- 50 documents:
+  - Runs easily on Colab/local machine
 
-## 2. What are the Sem 5 OS topics?
+- 5,000 documents:
+  - Still manageable using ChromaDB
 
-Retrieved syllabus chunks mentioning:
-- paging
-- scheduling
-- deadlocks
-- virtual memory
+- 1M+ documents:
+  - Requires optimized vector databases like:
+    - Pinecone
+    - Weaviate
+    - FAISS server mode
 
-Sources:
-- cse_sem5_2
-- cse_sem5_5
+---
 
+## 5. INTERVIEW ANSWER
 
-## 3. Which JDs require Python?
+"I built a citation-enforcing RAG chatbot over placement JDs and syllabus documents using MiniLM embeddings, ChromaDB, LangChain RetrievalQA, and Gemini. The system retrieves top-k relevant chunks and either answers with citations or refuses out-of-corpus questions to avoid hallucinations."
 
-Retrieved JD chunks mentioning Python requirements.
+---
 
-Sources:
-- jd_3
-- jd_5
-- jd_9
+# 5 Cited Q&A Pairs
 
+| # | Question | Answer (excerpt) | Sources cited |
+|---|---|---|---|
+| 1 | Which companies want Java + DSA + CGPA 7+? | TCS Digital requires Java + DSA with CGPA 7.0. Goldman Sachs also requires Java + DSA with CGPA 8.5. | TCS Digital, Goldman Sachs |
+| 2 | What are the Sem 5 OS topics? | Retrieval issue occurred because syllabus chunks were not returned correctly. Needs chunk tuning/re-indexing. | No syllabus chunks retrieved |
+| 3 | Which JDs require Python? | Cognizant, Goldman Sachs, and Accenture require Python in must-have skills. | Cognizant, Goldman Sachs, Accenture |
+| 4 | Companies hiring in Hyderabad? | Cognizant, TCS Digital, Accenture, and Deloitte USI are hiring in Hyderabad. | Cognizant, TCS Digital, Accenture, Deloitte USI |
+| 5 | What is TCS Codevita? | I do not know — not found in indexed corpus. | None |
 
-## 4. Companies hiring in Hyderabad?
+---
 
-Retrieved JD chunks mentioning Hyderabad location.
+# Retrieval Examples
 
-Sources:
-- jd_2
-- jd_6
+## Example 1
 
+### Question
+Which JDs require Python?
 
-## 5. What is TCS Codevita?
+### Retrieved Results
+- Cognizant
+- Goldman Sachs
+- Accenture
 
-Answer:
-I do not know.
+### Observation
+Semantic retrieval correctly matched Python-related JDs.
+
+---
+
+## Example 2
+
+### Question
+Companies hiring in Hyderabad?
+
+### Retrieved Results
+- Cognizant
+- TCS Digital
+- Accenture
+- Deloitte USI
+
+### Observation
+Location-based retrieval worked correctly using metadata-rich documents.
+
+---
+
+# Issues Faced
+
+## 1. Gemini API Quota Exhausted
+Encountered:
+- `429 RESOURCE_EXHAUSTED`
+
+Fix:
+- Switched temporarily to retrieval-only testing using `similarity_search()`
+
+---
+
+## 2. Dependency Conflicts
+Issues with:
+- protobuf
+- tensorflow
+- sentence_transformers
+- langchain versions
+
+Fix:
+- Installed compatible package versions manually
+
+---
+
+## 3. Poor Retrieval for OS Topics
+Sem 5 OS question returned JD chunks instead of syllabus chunks.
 
 Reason:
-Information not present in indexed corpus.
+- Chunking/retrieval overlap issue
+
+Planned Fix:
+- Reduce chunk size
+- Increase syllabus chunk density
+- Use metadata filtering
+
+---
+
+# Final Outcome
+
+Successfully built:
+- Persistent ChromaDB vector store
+- Semantic search pipeline
+- Citation-based retrieval system
+- LangChain RetrievalQA workflow
+
+The project demonstrates production-style RAG architecture suitable for:
+- Placement assistants
+- Internal knowledge bots
+- College academic assistants
+- Enterprise document QA systems
 
 
-# Trade-offs
-
-## Advantages
-- Fast retrieval
-- Free local embeddings
-- Citation-based answers
-- No retraining needed
-
-## Limitations
-- Retrieval quality depends on chunking
-- Gemini API quota issues during testing
-- No answer generation when API quota exhausted
 
 
-# Scale
-
-- 50 docs → works easily locally
-- 5K docs → manageable with ChromaDB
-- 1M docs → requires optimized vector DBs
 
 
-# Interview Answer
-
-“I built a placement-focused RAG system using MiniLM embeddings, ChromaDB, and LangChain. The system indexes placement JDs and syllabus documents, retrieves relevant chunks using vector similarity search, and provides citation-based answers.”
-
-
-# Project Status
-
-✅ Embedding pipeline working  
-✅ ChromaDB indexing working  
-✅ Retrieval pipeline working  
-✅ Citation retrieval working  
-✅ Local RAG search working
-
-
-# Note
-
-Gemini API quota was exhausted during testing.
 However, the local retrieval pipeline using MiniLM embeddings + ChromaDB worked successfully.
 
