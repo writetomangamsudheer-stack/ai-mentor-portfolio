@@ -75,7 +75,6 @@ Job Descriptions from company websites are messy HTML pages. Placement teams nee
 
 Manual extraction is slow and difficult for large numbers of JDs.
 
----
 
 ### 2. ARCHITECTURE
 
@@ -87,7 +86,6 @@ JD URL
 
 The system converts unstructured job pages into clean structured JSON.
 
----
 
 ### 3. TRADE-OFFS
 
@@ -96,7 +94,6 @@ The system converts unstructured job pages into clean structured JSON.
 - Gemini provides structured JSON but may still miss semantic details.
 - Most latency comes from Gemini API calls.
 
----
 
 ### 4. SCALE
 
@@ -104,13 +101,11 @@ The system converts unstructured job pages into clean structured JSON.
 - Large-scale systems require retry logic, queues, and paid APIs.
 - JSONL datasets can later be indexed into RAG systems.
 
----
 
 ### 5. INTERVIEW ANSWER
 
 "I built a schema-first pipeline that converts scraped Job Descriptions into structured JSON using Gemini structured outputs and Pydantic validation."
 
----
 
 ## Extraction Observations
 
@@ -118,14 +113,12 @@ The system converts unstructured job pages into clean structured JSON.
 - Google Careers pages were partially JavaScript-rendered, reducing extraction quality in some cases.
 - The pipeline handled partial scraping failures gracefully and continued processing remaining JDs.
 
----
 
 ## Files
 
 - `Day6_PlacementProcessor.ipynb`
 - `data/jds.jsonl`
 
----
 
 ## Pair
 
@@ -169,7 +162,6 @@ A Retrieval-Augmented Generation (RAG) system built using:
 
 The system retrieves relevant placement-related information with citations.
 
----
 
 # Problem Statement
 
@@ -180,7 +172,6 @@ LLMs do not know private placement data such as:
 
 This project solves that problem using RAG (Retrieval-Augmented Generation).
 
----
 
 # Architecture
 
@@ -194,7 +185,6 @@ Top-k Similarity Search
 ↓
 Retrieved Chunks with Citations
 
----
 
 # Tech Stack
 
@@ -205,7 +195,6 @@ Retrieved Chunks with Citations
 - Google Gemini API
 - HuggingFace Embeddings
 
----
 
 # Features
 
@@ -216,8 +205,6 @@ Retrieved Chunks with Citations
 - Syllabus topic retrieval
 - Out-of-corpus detection
 
----
-
 # Chunking Strategy
 
 - Chunk Size: 500
@@ -225,7 +212,6 @@ Retrieved Chunks with Citations
 - Embedding Model:
   `sentence-transformers/all-MiniLM-L6-v2`
 
----
 
 # Sample Questions
 
@@ -240,7 +226,6 @@ Sources:
 - jd_0
 - jd_5
 
----
 
 ## 2. What are the Sem 5 OS topics?
 
@@ -254,7 +239,6 @@ Sources:
 - cse_sem5_2
 - cse_sem5_5
 
----
 
 ## 3. Which JDs require Python?
 
@@ -265,7 +249,6 @@ Sources:
 - jd_5
 - jd_9
 
----
 
 ## 4. Companies hiring in Hyderabad?
 
@@ -275,7 +258,6 @@ Sources:
 - jd_2
 - jd_6
 
----
 
 ## 5. What is TCS Codevita?
 
@@ -285,7 +267,6 @@ I do not know.
 Reason:
 Information not present in indexed corpus.
 
----
 
 # Trade-offs
 
@@ -300,7 +281,6 @@ Information not present in indexed corpus.
 - Gemini API quota issues during testing
 - No answer generation when API quota exhausted
 
----
 
 # Scale
 
@@ -308,13 +288,11 @@ Information not present in indexed corpus.
 - 5K docs → manageable with ChromaDB
 - 1M docs → requires optimized vector DBs
 
----
 
 # Interview Answer
 
 “I built a placement-focused RAG system using MiniLM embeddings, ChromaDB, and LangChain. The system indexes placement JDs and syllabus documents, retrieves relevant chunks using vector similarity search, and provides citation-based answers.”
 
----
 
 # Project Status
 
@@ -324,7 +302,6 @@ Information not present in indexed corpus.
 ✅ Citation retrieval working  
 ✅ Local RAG search working
 
----
 
 # Note
 
