@@ -157,3 +157,177 @@ This lab demonstrated the basics of embeddings, vector databases, semantic searc
 
 - `Day7_RAG_Chatbot.ipynb`
 
+# PlacementKnowledgeRAG
+
+## Day 7 — Capstone Sprint 2
+
+A Retrieval-Augmented Generation (RAG) system built using:
+- MiniLM embeddings
+- ChromaDB vector database
+- LangChain
+- Placement JDs + syllabus documents
+
+The system retrieves relevant placement-related information with citations.
+
+---
+
+# Problem Statement
+
+LLMs do not know private placement data such as:
+- company job descriptions
+- syllabus documents
+- internal placement preparation material
+
+This project solves that problem using RAG (Retrieval-Augmented Generation).
+
+---
+
+# Architecture
+
+User Question
+↓
+MiniLM Embeddings
+↓
+ChromaDB Vector Store
+↓
+Top-k Similarity Search
+↓
+Retrieved Chunks with Citations
+
+---
+
+# Tech Stack
+
+- Python
+- Sentence Transformers
+- ChromaDB
+- LangChain
+- Google Gemini API
+- HuggingFace Embeddings
+
+---
+
+# Features
+
+- Indexed 50+ placement documents
+- Vector similarity search
+- Citation-based retrieval
+- JD search
+- Syllabus topic retrieval
+- Out-of-corpus detection
+
+---
+
+# Chunking Strategy
+
+- Chunk Size: 500
+- Chunk Overlap: 50
+- Embedding Model:
+  `sentence-transformers/all-MiniLM-L6-v2`
+
+---
+
+# Sample Questions
+
+## 1. Which companies want Java + DSA + CGPA 7+?
+
+Retrieved JD chunks mentioning:
+- Java
+- DSA
+- CGPA requirements
+
+Sources:
+- jd_0
+- jd_5
+
+---
+
+## 2. What are the Sem 5 OS topics?
+
+Retrieved syllabus chunks mentioning:
+- paging
+- scheduling
+- deadlocks
+- virtual memory
+
+Sources:
+- cse_sem5_2
+- cse_sem5_5
+
+---
+
+## 3. Which JDs require Python?
+
+Retrieved JD chunks mentioning Python requirements.
+
+Sources:
+- jd_3
+- jd_5
+- jd_9
+
+---
+
+## 4. Companies hiring in Hyderabad?
+
+Retrieved JD chunks mentioning Hyderabad location.
+
+Sources:
+- jd_2
+- jd_6
+
+---
+
+## 5. What is TCS Codevita?
+
+Answer:
+I do not know.
+
+Reason:
+Information not present in indexed corpus.
+
+---
+
+# Trade-offs
+
+## Advantages
+- Fast retrieval
+- Free local embeddings
+- Citation-based answers
+- No retraining needed
+
+## Limitations
+- Retrieval quality depends on chunking
+- Gemini API quota issues during testing
+- No answer generation when API quota exhausted
+
+---
+
+# Scale
+
+- 50 docs → works easily locally
+- 5K docs → manageable with ChromaDB
+- 1M docs → requires optimized vector DBs
+
+---
+
+# Interview Answer
+
+“I built a placement-focused RAG system using MiniLM embeddings, ChromaDB, and LangChain. The system indexes placement JDs and syllabus documents, retrieves relevant chunks using vector similarity search, and provides citation-based answers.”
+
+---
+
+# Project Status
+
+✅ Embedding pipeline working  
+✅ ChromaDB indexing working  
+✅ Retrieval pipeline working  
+✅ Citation retrieval working  
+✅ Local RAG search working
+
+---
+
+# Note
+
+Gemini API quota was exhausted during testing.
+However, the local retrieval pipeline using MiniLM embeddings + ChromaDB worked successfully.
+
