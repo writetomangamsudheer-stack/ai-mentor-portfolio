@@ -131,3 +131,29 @@ The system converts unstructured job pages into clean structured JSON.
 
 - Mentor 1: Mangam Sudheer
 - Mentor 2: Surimalli Koteswara Rao
+
+# Day 7 Lab 7A — ChromaDB Hello-World
+
+## Tasks Completed
+
+- Generated 384-dim embeddings using `all-MiniLM-L6-v2`
+- Indexed syllabus paragraphs in ChromaDB
+- Ran semantic similarity queries
+- Visualized embeddings using PCA
+- Added a food outlier sentence
+
+## Observations
+
+- Similar engineering topics clustered together
+- Unrelated queries returned nearest semantic matches
+- Food outlier appeared far from syllabus topics
+
+## Reflection
+
+Semantic search returns the nearest semantic match, not exact truth.
+This lab demonstrated the basics of embeddings, vector databases, semantic search, and RAG systems.
+
+## Files
+
+- `Day7_RAG_Chatbot.ipynb`
+
