@@ -359,7 +359,12 @@ The project demonstrates production-style RAG architecture suitable for:
 ### Successful runs
 - Student 1 completed
 - Student 2 completed
-- Student 3 partially completed (quota limit)
+- Student 3 completed
+
+### Tool usage observed
+- answer_scorer tool invoked successfully
+- Agent selected tools using doc-strings
+- Agent avoided hallucination when data was missing
 
 ### 1 failure-recovery analysis
 Bad URL passed to jd_fetcher.
@@ -368,14 +373,10 @@ Agent correctly reported URL fetch failure.
 ### Engineer Answer
 
 1. Built a 3-tool LangGraph agent.
-2. Agent performs JD analysis and skill-gap analysis.
+2. Agent performs JD analysis and interview-answer scoring.
 3. Tools are selected using doc-strings.
 4. Failure handling prevents hallucination.
 5. Agent supports placement preparation.
-
-
-
-
 
 However, the local retrieval pipeline using MiniLM embeddings + ChromaDB worked successfully.
 
