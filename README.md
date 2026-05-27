@@ -349,6 +349,30 @@ The project demonstrates production-style RAG architecture suitable for:
 2. The doc-string IS the prompt. Bad doc-string = bad tool selection.
 3. Real agents handle tool failures gracefully.
 
+## Day 9 — Capstone Sprint 4: Career Agent
+
+### 3 tools wired
+1. jd_fetcher
+2. skills_gap
+3. answer_scorer
+
+### Successful runs
+- Student 1 completed
+- Student 2 completed
+- Student 3 partially completed (quota limit)
+
+### 1 failure-recovery analysis
+Bad URL passed to jd_fetcher.
+Agent correctly reported URL fetch failure.
+
+### Engineer Answer
+
+1. Built a 3-tool LangGraph agent.
+2. Agent performs JD analysis and skill-gap analysis.
+3. Tools are selected using doc-strings.
+4. Failure handling prevents hallucination.
+5. Agent supports placement preparation.
+
 
 
 
