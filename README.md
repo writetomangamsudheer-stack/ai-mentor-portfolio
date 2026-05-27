@@ -336,7 +336,18 @@ The project demonstrates production-style RAG architecture suitable for:
 - Internal knowledge bots
 - College academic assistants
 - Enterprise document QA systems
+- 
+## Day 9 Lab 9A — Hello-LangGraph
 
+- 1-tool ReAct agent with DuckDuckGo web_search
+- 4-message trace on a live-fact question (TCS 2026 hiring)
+- Failure case: bad URL → agent reported domain does not exist
+
+### Reflection (3 lines)
+
+1. The trace IS the explanation. Print every step.
+2. The doc-string IS the prompt. Bad doc-string = bad tool selection.
+3. Real agents handle tool failures gracefully.
 
 
 
