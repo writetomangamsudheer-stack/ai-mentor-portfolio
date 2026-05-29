@@ -477,3 +477,16 @@ Generates structured JSON-style progress summaries.
 
 This project demonstrates how multi-agent AI systems can automate placement preparation workflows using modular orchestration, retrieval-based reasoning, and structured reporting.
 
+## Day 11 Lab 11A — Ollama Offline + Hybrid Fallback
+
+### Completed
+- ✅ Ollama installed locally
+- ✅ llama3.2 model downloaded
+- ✅ Offline AI tested after Wi-Fi disconnect
+- ✅ Gemini → Groq → Ollama fallback chain implemented
+- ✅ Force-failure testing completed
+- ✅ Local fallback verified
+
+<img width="1914" height="1079" alt="image" src="https://github.com/user-attachments/assets/027465a5-d109-40c2-b5eb-12ee731168fc" />
+
+
