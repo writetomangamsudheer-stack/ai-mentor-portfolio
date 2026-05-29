@@ -401,3 +401,79 @@ Researcher → Writer → Final Markdown Brief
 2. `expected_output` is the contract between agents.
 3. Verbose mode helps debug multi-agent workflows.
 
+
+# Day10-Capstone Sprint_ Placement Prep Crew
+
+## Overview
+
+Placement Prep Crew is a multi-agent AI workflow built using CrewAI, Gemini API, ChromaDB, and Sentence Transformers. The system automates placement preparation by generating research notes, mock interview questions, coaching answers, and progress summaries for students.
+
+---
+
+# Architecture
+
+Researcher → Interviewer → Coach → Tracker
+
+The workflow uses sequential multi-agent orchestration where each agent performs a specialized task and passes outputs to the next agent.
+
+---
+
+# Agents
+
+## Researcher Agent
+
+Uses RAG-based retrieval from ChromaDB to collect placement preparation information.
+
+## Interviewer Agent
+
+Generates technical and HR interview questions.
+
+## Coach Agent
+
+Creates strong sample answers and preparation guidance.
+
+## Tracker Agent
+
+Generates structured JSON-style progress summaries.
+
+---
+
+# Features
+
+* Multi-agent orchestration
+* Sequential workflow execution
+* RAG integration
+* Automated interview preparation
+* JSON transcript generation
+* Markdown report generation
+
+---
+
+# Workflow
+
+1. Student profile is provided
+2. Researcher gathers preparation information
+3. Interviewer generates mock questions
+4. Coach creates sample answers
+5. Tracker generates structured summaries
+6. Reports are saved as JSON and Markdown files
+
+---
+
+# Outputs
+
+* day10_sprint5_transcripts.json
+* day10_sprint5_report.md
+
+# Learning Outcomes
+
+* CrewAI orchestration
+* Multi-agent system design
+* RAG implementation
+* Sequential task pipelines
+* Structured AI workflows
+
+# Conclusion
+
+This project demonstrates how multi-agent AI systems can automate placement preparation workflows using modular orchestration, retrieval-based reasoning, and structured reporting.
+
